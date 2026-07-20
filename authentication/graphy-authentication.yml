@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/graphy-agents-openapi.yaml
+docs: https://docs.graphy.dev/agents/rest/authentication
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+  api_key_prefix: graphy_
+  key_console: https://agents.graphy.dev/console/
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  header: Authorization
+  format: 'Bearer [example key]'
+  description: Your Graphy API key (starts with graphy_). Create one in the Graphy console at
+    https://agents.graphy.dev/console/. Keys must be kept out of frontend code and stored via
+    environment variables or a secrets manager. All requests also require Content-Type application/json.
+  sources:
+  - openapi/graphy-agents-openapi.yaml
