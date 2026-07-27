@@ -1,0 +1,42 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/llms.txt
+sources:
+- https://docs.graphy.dev/agents/rest/authentication
+- https://docs.graphy.dev/agents/rest/sse
+- https://docs.graphy.dev/agents/rest/errors
+- https://docs.graphy.dev/agents/versioning
+- openapi/graphy-agents-openapi.yaml
+authentication:
+  style: http-bearer
+  header: 'Authorization: Bearer graphy_...'
+  content_type: application/json
+  see: authentication/graphy-authentication.yml
+streaming:
+  transport: server-sent-events
+  content_type: text/event-stream
+  event_types: [progress, complete, error]
+  note: >-
+    Every Agents API endpoint streams. Progress events report intermediate status; a single
+    complete event carries the result; an error event carries { error, code?, retryable? }.
+  docs: https://docs.graphy.dev/agents/rest/sse
+idempotency:
+  supported: false
+  note: No idempotency key/header is documented for the Graphy Agents API.
+pagination:
+  supported: false
+  note: Agent operations are single request/stream; no list-collection pagination is exposed.
+versioning:
+  style: uri-path
+  current: v0
+  example: https://agents.graphy.dev/api/v0/generate
+  see: lifecycle/graphy-lifecycle.yml
+error_envelope:
+  shape: '{ error: string, code?: string, retryable?: boolean }'
+  see: errors/graphy-problem-types.yml
+rate_limit_signal:
+  documented: false
+  error_code: RATE_LIMIT_ERROR (HTTP 429, retryable)
+request_tracing:
+  request_id_header: null
+  documented: false

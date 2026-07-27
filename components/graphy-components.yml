@@ -1,0 +1,49 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/core/quickstart
+note: >-
+  Graphy ships a client-side charting SDK — embeddable, interactive React components distinct from
+  the server-side Agents API. Grouped by family below.
+loader_libraries:
+- "@graphysdk/core"
+families:
+- family: Graph rendering
+  components:
+  - name: Graph
+    description: Interactive chart renderer supporting 20+ graph types.
+    reference: https://docs.graphy.dev/reference/graph
+  - name: GraphProvider
+    description: React context provider that supplies GraphConfig/theme to Graph components.
+    reference: https://docs.graphy.dev/reference/graph-provider
+  - name: GraphTheme
+    description: Theme configuration for rendered graphs.
+    reference: https://docs.graphy.dev/reference/graph-theme
+- family: Editor
+  components:
+  - name: EditorProvider
+    description: Provider enabling the in-place chart editor experience.
+    reference: https://docs.graphy.dev/reference/editor-provider
+  - name: EditorComponentRegistry
+    description: Registry for customizing/overriding editor panel components.
+    reference: https://docs.graphy.dev/reference/editor-component-registry
+  - name: EditorTheme
+    description: Theme configuration for the editor UI.
+    reference: https://docs.graphy.dev/reference/editor-theme
+  - name: Data table
+    description: Editable data-table surface for a chart's dataset.
+    reference: https://docs.graphy.dev/editor/data-table
+graph_types:
+- line
+- area-stacked
+- bar
+- bubble
+- column
+- combo
+- donut
+- funnel
+- heatmap
+- mekko
+- pie
+- scatter
+- table
+- waterfall

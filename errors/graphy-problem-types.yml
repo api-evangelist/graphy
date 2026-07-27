@@ -1,0 +1,48 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/agents/rest/errors
+derived_from: openapi/graphy-agents-openapi.yaml
+format: custom-json
+note: >-
+  Graphy does not use RFC 9457 application/problem+json. Errors arrive either as an HTTP status
+  code before streaming begins, or as a Server-Sent Event with `event: error` once the stream has
+  started. The error envelope is { error: string, code?: string, retryable?: boolean }.
+envelope:
+  fields:
+    error: string (human-readable message)
+    code: string (machine-readable code, optional)
+    retryable: boolean (optional)
+  delivery:
+  - HTTP status code prior to stream start
+  - 'SSE event: error during streaming (see https://docs.graphy.dev/agents/rest/sse)'
+problems:
+- code: VALIDATION_ERROR
+  status: 400
+  retryable: false
+  title: Invalid request body or parameters
+  remediation: Check for missing required fields or malformed JSON.
+- code: AUTHENTICATION_ERROR
+  status: 401
+  retryable: false
+  title: Invalid or missing API key
+  remediation: Verify the Authorization header is present, well-formed (Bearer graphy_...), and the key is valid.
+- code: AUTHORIZATION_ERROR
+  status: 403
+  retryable: false
+  title: Insufficient permissions
+  remediation: The API key is valid but not permitted for this operation.
+- code: RATE_LIMIT_ERROR
+  status: 429
+  retryable: true
+  title: Too many requests
+  remediation: Back off and retry; reduce request volume within the window.
+- code: PROCESSING_ERROR
+  status: 500
+  retryable: true
+  title: Internal processing failure
+  remediation: Retry the request; if persistent, contact Graphy support.
+- code: TIMEOUT_ERROR
+  status: 504
+  retryable: true
+  title: Request took too long
+  remediation: Retry the request, optionally with a smaller payload.

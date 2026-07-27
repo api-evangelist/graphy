@@ -1,0 +1,24 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/agents/versioning
+scheme: uri-path-major-version
+current_version: v0
+note: >-
+  Graphy does not publish a dated per-release changelog for the Agents API. Version state is
+  tracked via URI-path major versions and the versioning policy page. Captured as the current
+  release posture rather than a dated entry list.
+entries:
+- version: v0
+  date: null
+  status: pre-stable
+  breaking: false
+  highlights:
+  - Initial public developer platform (graphy.dev) with the AI Agents API and charting SDK.
+  - 'Seven agent operations: generate, suggestions, mutate, annotate, narrate, extract, evaluate.'
+- version: v1
+  date: null
+  status: planned
+  breaking: true
+  highlights:
+  - First stable release; backward-compatibility guarantees within the major version.
+  - Deprecation cycle before removal, matching the SDK package guarantees.

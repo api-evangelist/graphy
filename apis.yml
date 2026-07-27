@@ -1,25 +1,124 @@
 aid: graphy
 name: Graphy
-description: Graphy is a company surfaced as a portfolio company of seedcamp and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Graphy is an AI-powered data visualization platform that turns raw data into presentation-ready
+  charts and interactive data stories. Alongside its no-code chart maker (Google Sheets, CSV and
+  Excel import, AI insights, conversational data chat and 20+ chart types), Graphy ships a developer
+  platform at graphy.dev: an AI Agents API that generates, mutates, annotates, narrates, extracts
+  and deterministically evaluates charts from natural language — streamed as Server-Sent Events —
+  plus a React charting SDK and editor for embedding editable, story-driven data experiences inside
+  your own product. Backed by Seedcamp, Coatue, General Catalyst and Northzone.
 url: https://raw.githubusercontent.com/api-evangelist/graphy/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://framerusercontent.com/assets/HQAKsmFxtBCYp0V86Kb4PbbCjx4.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - seedcamp
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-developer-platform
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Data Visualization
+- Charts
+- Charting
+- Analytics
+- Artificial Intelligence
+- Data Storytelling
+- Developer Tools
+- SDK
+- Agents
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: graphy:graphy-agents-api
+  name: Graphy Agents API
+  description: The Agents API from Graphy — 7 operation(s) for agents.
+  humanURL: https://docs.graphy.dev/agents/overview
+  baseURL: https://agents.graphy.dev
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/graphy-agents-api-openapi.yml
+  - type: APIReference
+    url: https://docs.graphy.dev/agents/overview
 common:
+- type: AgenticAccess
+  url: agentic-access/graphy-agentic-access.yml
 - type: Website
-  url: http://graphy.app
+  url: https://graphy.app
+- type: DeveloperPortal
+  url: https://graphy.dev
+- type: Documentation
+  url: https://docs.graphy.dev/
+- type: APIReference
+  url: https://docs.graphy.dev/agents/overview
+- type: GettingStarted
+  url: https://docs.graphy.dev/agents/quickstart
+- type: Blog
+  url: https://graphy.app/blog
+- type: Pricing
+  url: https://graphy.app/pricing
+- type: SignUp
+  url: https://graphy.app/signup
+- type: TermsOfService
+  url: https://graphy.app/terms
+- type: PrivacyPolicy
+  url: https://graphy.app/privacy
+- type: StatusPage
+  url: https://status.graphy.app/
+- type: Deprecation
+  url: https://docs.graphy.dev/agents/versioning
+- type: Sandbox
+  url: https://playground.graphy.dev/
+- type: ChangeLog
+  url: changelog/graphy-changelog.yml
+- type: Lifecycle
+  url: lifecycle/graphy-lifecycle.yml
+- type: Authentication
+  url: authentication/graphy-authentication.yml
+- type: DomainSecurity
+  url: security/graphy-domain-security.yml
+- type: Packages
+  url: packages/graphy-packages.yml
+- type: SDKs
+  url: packages/graphy-packages.yml
+- type: Components
+  url: components/graphy-components.yml
+- type: MCPServer
+  url: mcp/graphy-mcp.yml
+- type: LLMsTxt
+  url: llms/graphy-llms.txt
+- type: ErrorCatalog
+  url: errors/graphy-problem-types.yml
+- type: Conventions
+  url: conventions/graphy-conventions.yml
+- type: Conformance
+  url: conformance/graphy-conformance.yml
+- type: DataModel
+  url: data-model/graphy-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

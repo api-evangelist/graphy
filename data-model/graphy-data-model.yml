@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/graphy-agents-openapi.yaml
+note: >-
+  Entity-relationship graph derived from the OpenAPI 3.1 component schemas. The Graphy Agents API
+  is stateless/config-centric — there are no server-side persisted resources with ids; the central
+  contract is GraphConfig, which requests carry in and completion events carry out.
+central_entity: GraphConfig
+entities:
+- name: GraphConfig
+  description: The graph configuration object used to render charts (chart type + dataset + content).
+  fields: [type, data]
+- name: Metadata
+  description: Per-call metadata controlling locale, effort and storytelling effort.
+  fields: [callId, locale, effort, storytellingEffort]
+- name: GenerateRequest
+  description: Chart Maker request — a GraphConfig plus a natural-language userPrompt.
+  fields: [config, userPrompt, metadata]
+- name: SuggestionsRequest
+  fields: [config, userPrompt, metadata, maxSuggestionCount]
+- name: Suggestion
+  fields: [dataPrepPrompt, chartType, summary]
+- name: ExtractRequest
+  description: Build a dataset from prose/attachments/images.
+  fields: [sourceText, attachments, images, metadata]
+- name: ExtractAttachment
+  fields: [kind, mimeType, dataBase64, filename]
+- name: EvaluateRequest
+  fields: [config, chartFamily, metadata]
+- name: ChartFitEntry
+  description: One ranked chart-type fit result from the deterministic evaluator.
+  fields: [rank, type, score, verdict, factors]
+- name: ChartFitFactor
+  fields: [kind, label, weight, reason]
+- name: CompleteEvent
+  description: Terminal SSE event carrying the updated config and a response message.
+  fields: [config, response]
+relationships:
+- from: GenerateRequest
+  to: GraphConfig
+  kind: has_one
+  via: config
+- from: GenerateRequest
+  to: Metadata
+  kind: has_one
+  via: metadata
+- from: SuggestionsRequest
+  to: GraphConfig
+  kind: has_one
+  via: config
+- from: SuggestionsCompleteEvent
+  to: Suggestion
+  kind: has_many
+  via: suggestions
+- from: ExtractRequest
+  to: ExtractAttachment
+  kind: has_many
+  via: attachments
+- from: EvaluateRequest
+  to: GraphConfig
+  kind: has_one
+  via: config
+- from: EvaluateCompleteEvent
+  to: ChartFitEntry
+  kind: has_many
+  via: ranking
+- from: ChartFitEntry
+  to: ChartFitFactor
+  kind: has_many
+  via: factors
+- from: CompleteEvent
+  to: GraphConfig
+  kind: has_one
+  via: config

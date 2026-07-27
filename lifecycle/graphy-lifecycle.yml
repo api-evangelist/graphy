@@ -1,0 +1,24 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/agents/versioning
+versioning:
+  scheme: uri-path
+  current: v0
+  stability: pre-stable (v0; breaking changes possible)
+  next: v1 (planned first stable release; backward-compatibility within the major version)
+  docs: https://docs.graphy.dev/agents/versioning
+  guidance: >-
+    REST consumers should pin to a specific API version in the URL (e.g.
+    https://agents.graphy.dev/api/v0/generate) and test before upgrading. Breaking changes to the
+    GraphConfig contract trigger a major version bump; new optional fields or chart types do not.
+deprecation:
+  policy: >-
+    When v1 ships, the same guarantees as the SDK packages apply — no breaking changes within a
+    major version, with a deprecation cycle before removal.
+  policy_url: https://docs.graphy.dev/agents/versioning
+  sunset_header: false
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.graphy.app/
+deprecated_operations: []

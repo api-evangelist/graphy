@@ -1,0 +1,14 @@
+{
+  "provider": "graphy",
+  "sources": [
+    "graphy-agents-api-openapi.yml"
+  ],
+  "outputs": [
+    "graphy-agents-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

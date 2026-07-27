@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: searched
+note: >-
+  Probed the standard /.well-known/ discovery surface on every Graphy host (graphy.app,
+  graphy.dev, docs.graphy.dev, agents.graphy.dev). None are published — all returned 404.
+  Recorded for auditability; no WellKnown/SecurityTxt pointer is wired since nothing was found.
+hosts:
+- host: https://graphy.app
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://graphy.dev
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://docs.graphy.dev
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://agents.graphy.dev
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}

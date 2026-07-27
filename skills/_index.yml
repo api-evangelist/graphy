@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/graphy-agents-openapi.yaml
+skills:
+- file: graphy-extract-and-visualize.md
+  name: Extract data and build a chart with Graphy
+  api: openapi/graphy-agents-openapi.yaml
+  operations: [extractFromProse, evaluateDataset, generateGraph, generateNarrative]
+- file: graphy-refine-chart.md
+  name: Refine and annotate a chart with Graphy
+  api: openapi/graphy-agents-openapi.yaml
+  operations: [generateSuggestions, generateMutation, generateGraph, generateNarrative, generateAnnotations]

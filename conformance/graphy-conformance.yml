@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/graphy-agents-openapi.yaml
+note: Cross-cutting standards conformance derived from the OpenAPI 3.1 spec and the developer docs.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi/graphy-agents-openapi.yaml declares openapi 3.1.0
+- id: http-bearer-auth
+  conforms: true
+  evidence: securitySchemes.bearerAuth type http scheme bearer
+- id: sse-server-sent-events
+  conforms: true
+  evidence: all operations respond text/event-stream (progress/complete/error events)
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme; API-key bearer only
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom { error, code, retryable } envelope, not application/problem+json
+- id: json-api
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: fapi
+  conforms: false
+- id: scim
+  conforms: false
+- id: odata
+  conforms: false

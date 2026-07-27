@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Graphy AI Agents API
+  version: 1.0.0
+extends: openapi/graphy-agents-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-provider: graphy
+    x-api-style: sse-streaming
+    x-authentication: authentication/graphy-authentication.yml
+    x-error-catalog: errors/graphy-problem-types.yml
+    x-conventions: conventions/graphy-conventions.yml
+    x-lifecycle: lifecycle/graphy-lifecycle.yml
+- target: $.info
+  update:
+    x-tags-summary: >-
+      AI-powered chart generation and modification over natural language, streamed as
+      Server-Sent Events. Seven agent operations: generate, suggestions, mutate, annotate,
+      narrate, extract, evaluate.
+- target: $.servers[0]
+  update:
+    x-status-page: https://status.graphy.app/
+    x-playground: https://playground.graphy.dev/

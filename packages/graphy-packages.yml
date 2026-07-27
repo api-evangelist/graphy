@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.graphy.dev/agents/quickstart
+note: >-
+  First-party TypeScript/JavaScript SDKs documented in the Graphy developer docs. As of this
+  probe the scoped packages were not resolvable on the public npm registry (HTTP 404), consistent
+  with Graphy's developer platform being in early/get-access availability. Recorded as documented
+  first-party libraries; availability may be private/early-access.
+packages:
+- language: typescript
+  registry: npm
+  name: "@graphysdk/agents-sdk"
+  url: https://www.npmjs.com/package/@graphysdk/agents-sdk
+  install: npm install @graphysdk/agents-sdk @graphysdk/core
+  official: true
+  public_registry_status: 404
+  description: TypeScript client for the Graphy AI Agents API (generate, suggestions, mutate, annotate, narrate, extract, evaluate).
+- language: typescript
+  registry: npm
+  name: "@graphysdk/core"
+  url: https://www.npmjs.com/package/@graphysdk/core
+  install: npm install @graphysdk/core
+  official: true
+  public_registry_status: 404
+  description: Graphy charting SDK — interactive, editable React charts (20+ graph types), editor and annotations.
+- language: typescript
+  registry: npm
+  name: "@graphysdk/data-import-utils"
+  url: https://www.npmjs.com/package/@graphysdk/data-import-utils
+  install: npm install @graphysdk/data-import-utils
+  official: true
+  public_registry_status: 404
+  description: Utilities to convert CSV, TSV, ODS, XLS/XLSX, files, buffers, text and URLs into chart-ready datasets.

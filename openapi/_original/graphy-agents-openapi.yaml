@@ -1,0 +1,810 @@
+openapi: 3.1.0
+info:
+  title: Graphy AI Agents API
+  version: 0.1.0
+  description: AI-powered chart generation and modification API
+servers:
+  - url: https://agents.graphy.dev
+    description: Production
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Your Graphy API key (starts with graphy_). Create one in the Graphy
+        console at https://agents.graphy.dev/console/
+  schemas:
+    GraphConfig:
+      type: object
+      description: >-
+        The graph configuration object used to render charts. See [Graph Config
+        Schema](/reference/graph-config) for the complete reference.
+      properties:
+        type:
+          type: string
+          enum:
+            - line
+            - areaStacked
+            - bar
+            - groupedBar
+            - stackedBar
+            - 100StackedBar
+            - column
+            - groupedColumn
+            - stackedColumn
+            - 100StackedColumn
+            - combo
+            - pie
+            - donut
+            - funnel
+            - heatmap
+            - scatter
+            - bubble
+            - waterfall
+            - table
+            - mekko
+          description: The chart type
+        data:
+          type: object
+          properties:
+            columns:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  label:
+                    type: string
+            rows:
+              type: array
+              items:
+                type: object
+                additionalProperties: true
+      required:
+        - type
+        - data
+    Metadata:
+      type: object
+      description: Optional tracking information for requests
+      properties:
+        callId:
+          type: string
+          description: >-
+            Required when metadata is provided. Unique identifier for tracking
+            and debugging.
+        locale:
+          type: string
+          enum:
+            - EN_GB
+            - EN_US
+            - AR
+            - PT_PT
+          description: Locale for responses
+        effort:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          description: >-
+            Preferred invocation tier; forwarded on the invocation (including
+            nested agents). When omitted, it can be inferred from
+            `storytellingEffort` or defaults to `medium`.
+        storytellingEffort:
+          type: string
+          enum:
+            - none
+            - low
+            - medium
+            - high
+          description: >-
+            Deprecated. Prefer `effort`. When set without `effort`, the server
+            derives `effort` for propagation. For chart generation, an explicit
+            value still controls narrative richness when both `effort` and
+            `storytellingEffort` are present (`storytellingEffort` wins for the
+            chart).
+      required:
+        - callId
+    GenerateRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        userPrompt:
+          type: string
+          maxLength: 10000
+          description: Natural language instruction describing the desired changes
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - config
+        - userPrompt
+    SuggestionsRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        userPrompt:
+          type: string
+          maxLength: 10000
+          description: Natural language description of what to visualize
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        maxSuggestionCount:
+          type: integer
+          minimum: 1
+          maximum: 4
+          description: >-
+            Optional upper bound (1–4) communicated to the model for how many
+            suggestions to aim for. The response is not truncated; the model may
+            still return more items.
+      required:
+        - config
+        - userPrompt
+    Suggestion:
+      type: object
+      properties:
+        dataPrepPrompt:
+          type: string
+          description: Prompt describing how to prepare the data for this chart
+        chartType:
+          type: string
+          enum:
+            - line
+            - areaStacked
+            - bar
+            - groupedBar
+            - stackedBar
+            - 100StackedBar
+            - column
+            - groupedColumn
+            - stackedColumn
+            - 100StackedColumn
+            - combo
+            - pie
+            - donut
+            - funnel
+            - heatmap
+            - scatter
+            - bubble
+            - waterfall
+            - table
+            - mekko
+          description: Suggested chart type
+        summary:
+          type: string
+          description: Short description of what the chart would show
+      required:
+        - dataPrepPrompt
+        - chartType
+        - summary
+    SuggestionsCompleteEvent:
+      title: Suggestions complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Suggestion'
+    ProgressEvent:
+      title: Progress event
+      description: SSE event name is "progress"
+      type: object
+      properties:
+        message:
+          type: string
+    CompleteEvent:
+      title: Complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        response:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable explanation of the changes made
+            steps:
+              type: array
+              items:
+                type: string
+              description: Breakdown of individual modifications
+    ErrorEvent:
+      title: Error event
+      description: SSE event name is "error"
+      type: object
+      properties:
+        message:
+          type: string
+    ExtractAttachment:
+      type: object
+      description: >-
+        An image, PDF, or spreadsheet to extract data from. Construct directly
+        or via the SDK build*Attachment helpers.
+      properties:
+        kind:
+          type: string
+          enum:
+            - image
+            - document
+            - spreadsheet
+        mimeType:
+          type: string
+          description: >-
+            e.g. image/png, application/pdf, or
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        dataBase64:
+          type: string
+          description: >-
+            RFC 4648 standard base64 of the file bytes (raw bytes, not a data
+            URL)
+        filename:
+          type: string
+          description: Optional; spreadsheets only
+      required:
+        - kind
+        - mimeType
+        - dataBase64
+    ExtractRequest:
+      type: object
+      description: >-
+        Provide sourceText, attachments, or both — at least one is required.
+        images and attachments are mutually exclusive.
+      properties:
+        sourceText:
+          type: string
+          maxLength: 500000
+          description: Raw text to extract data from
+        attachments:
+          type: array
+          maxItems: 12
+          description: >-
+            Images (max 8), PDFs (max 2), and spreadsheets (max 2). Preferred
+            over images[].
+          items:
+            $ref: '#/components/schemas/ExtractAttachment'
+        images:
+          type: array
+          maxItems: 8
+          description: Deprecated — use attachments with kind "image".
+          items:
+            type: object
+            properties:
+              mimeType:
+                type: string
+              dataBase64:
+                type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ExtractMeta:
+      title: Extraction trust metadata
+      type: object
+      description: Trust metadata for the extraction; null when unavailable
+      properties:
+        confidence:
+          type: string
+          enum:
+            - high
+            - medium
+            - low
+        needsUserInput:
+          type: boolean
+        warnings:
+          type: array
+          items:
+            type: string
+    ExtractCompleteEvent:
+      title: Extract complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        response:
+          type: object
+          properties:
+            message:
+              type: string
+        extractMeta:
+          $ref: '#/components/schemas/ExtractMeta'
+        lastAccuracyEvaluation:
+          type: object
+          description: Optional final accuracy self-check
+          properties:
+            score:
+              type: number
+            issues:
+              type: array
+              items:
+                type: string
+            sufficient:
+              type: boolean
+            summary:
+              type: string
+    EvaluateRequest:
+      type: object
+      description: >-
+        Deterministic evaluation reads only config.data and the optional
+        chartFamily — there is no userPrompt.
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        chartFamily:
+          type: string
+          enum:
+            - comparison
+            - relationship
+            - distribution
+            - composition
+          description: >-
+            Optional Abela chart-family hint. When set, chart types in that
+            family get a fit bonus.
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - config
+    ChartFitFactor:
+      type: object
+      description: A single reason that contributed to a chart type's score.
+      properties:
+        kind:
+          type: string
+          enum:
+            - deal-breaker
+            - pro
+            - con
+            - family
+            - specificity
+            - continuity
+        label:
+          type: string
+          description: Short label for the factor.
+        weight:
+          type: number
+          description: How much the factor moved the score.
+        reason:
+          type: string
+          description: Why the factor applies to this dataset.
+      required:
+        - kind
+        - label
+        - weight
+        - reason
+    ChartFitEntry:
+      type: object
+      description: A single chart type, scored against the dataset.
+      properties:
+        rank:
+          type: integer
+          description: >-
+            1-based rank in the response array. Stable as scoring rules evolve —
+            prefer it over score.
+        type:
+          type: string
+          enum:
+            - line
+            - areaStacked
+            - bar
+            - groupedBar
+            - stackedBar
+            - 100StackedBar
+            - column
+            - groupedColumn
+            - stackedColumn
+            - 100StackedColumn
+            - combo
+            - pie
+            - donut
+            - funnel
+            - heatmap
+            - scatter
+            - bubble
+            - waterfall
+            - table
+            - mekko
+          description: The chart type being scored.
+        score:
+          type: number
+          description: >-
+            Raw fit score. Drifts as rules change; use rank and verdict for
+            stable checks.
+        verdict:
+          type: string
+          enum:
+            - ok
+            - disqualified
+          description: ok if the chart type is usable, disqualified if a rule rules it out.
+        factors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartFitFactor'
+          description: The individual reasons that contributed to the score.
+      required:
+        - rank
+        - type
+        - score
+        - verdict
+        - factors
+    EvaluateCompleteEvent:
+      title: Evaluation complete event
+      description: SSE event name is "complete". Evaluation emits no progress events.
+      type: object
+      properties:
+        ranking:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartFitEntry'
+          description: Every supported chart type, scored and ranked by fit (best first).
+      required:
+        - ranking
+paths:
+  /api/v0/generate:
+    post:
+      operationId: generateGraph
+      summary: Chart Maker Agent
+      description: >
+        Modify charts using natural language. Send a GraphConfig and a prompt,
+        receive an updated GraphConfig.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+            example:
+              config:
+                type: column
+                data:
+                  columns:
+                    - key: quarter
+                      label: Quarter
+                    - key: revenue
+                      label: Revenue
+                  rows:
+                    - quarter: Q1
+                      revenue: 50000
+                    - quarter: Q2
+                      revenue: 62000
+                    - quarter: Q3
+                      revenue: 58000
+                    - quarter: Q4
+                      revenue: 71000
+              userPrompt: Change this to a line chart with a trend line
+              metadata:
+                callId: req-12345
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/CompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/suggestions:
+    post:
+      operationId: generateSuggestions
+      summary: Suggestions Agent
+      description: >
+        Generate chart type and data preparation suggestions from a dataset.
+        Send a GraphConfig and a prompt, receive suggested visualizations.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestionsRequest'
+            example:
+              config:
+                type: column
+                data:
+                  columns:
+                    - key: month
+                      label: Month
+                    - key: sales
+                      label: Sales
+                    - key: region
+                      label: Region
+                  rows:
+                    - month: Jan
+                      sales: 100
+                      region: North
+                    - month: Feb
+                      sales: 120
+                      region: South
+                    - month: Mar
+                      sales: 115
+                      region: North
+              userPrompt: Show me interesting trends
+              metadata:
+                callId: req-67890
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/SuggestionsCompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/mutate:
+    post:
+      operationId: generateMutation
+      summary: Mutation Agent
+      description: >
+        Transform a chart's dataset with natural language — filter, group,
+        aggregate, derive, sort.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+            example:
+              config:
+                type: column
+                data:
+                  columns:
+                    - key: region
+                      label: Region
+                    - key: sales
+                      label: Sales
+                  rows:
+                    - region: North
+                      sales: 100
+                    - region: South
+                      sales: 80
+                    - region: North
+                      sales: 120
+              userPrompt: Total sales by region, sorted highest first
+              metadata:
+                callId: req-mutate-1
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/CompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/annotate:
+    post:
+      operationId: generateAnnotations
+      summary: Annotation Agent
+      description: >
+        Add highlights, tooltips, stickers, and other annotations to a chart
+        with natural language.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+            example:
+              config:
+                type: column
+                data:
+                  columns:
+                    - key: month
+                      label: Month
+                    - key: revenue
+                      label: Revenue
+                  rows:
+                    - month: Jan
+                      revenue: 100
+                    - month: Feb
+                      revenue: 140
+                    - month: Mar
+                      revenue: 220
+              userPrompt: Highlight the March peak and add a tooltip explaining it
+              metadata:
+                callId: req-annotate-1
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/CompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/narrate:
+    post:
+      operationId: generateNarrative
+      summary: Narrative Agent
+      description: >
+        Generate a chart's title, subtitle, and caption. Narrative is written
+        into config.content as TipTap JSON. Requires userPrompt.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+            example:
+              config:
+                type: line
+                data:
+                  columns:
+                    - key: month
+                      label: Month
+                    - key: users
+                      label: Active Users
+                  rows:
+                    - month: Jan
+                      users: 1200
+                    - month: Feb
+                      users: 1800
+                    - month: Mar
+                      users: 3100
+              userPrompt: Write a punchy title and a one-line caption
+              metadata:
+                callId: req-narrate-1
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/CompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/extract:
+    post:
+      operationId: extractFromProse
+      summary: Extract Agent
+      description: >
+        Build a chart-ready dataset from unstructured text, images, PDFs, or
+        .xlsx spreadsheets. Provide sourceText, attachments, or both.
+
+
+        The response is a Server-Sent Events (SSE) stream with progress,
+        complete, and error events.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtractRequest'
+            example:
+              sourceText: >-
+                In Q3, the Direct channel brought in $1.9M, Partner $0.4M, and
+                Marketplace $1.1M.
+              metadata:
+                callId: req-extract-1
+                locale: EN_US
+      responses:
+        '200':
+          description: SSE stream with progress and completion events
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ProgressEvent'
+                  - $ref: '#/components/schemas/ExtractCompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
+  /api/v0/evaluate:
+    post:
+      operationId: evaluateDataset
+      summary: Evaluation
+      description: >
+        Score how well every chart type fits a dataset. Deterministic — a
+        rule-based scorer with no language model, so it returns a single result
+        and uses no tokens. Only config.data is scored.
+
+
+        The response is a Server-Sent Events (SSE) stream. Evaluation emits no
+        progress events — the result arrives in a single complete event.
+      tags:
+        - Agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateRequest'
+            example:
+              config:
+                type: column
+                data:
+                  columns:
+                    - key: product
+                      label: Product
+                    - key: revenue
+                      label: Revenue
+                  rows:
+                    - product: Widget A
+                      revenue: 4200
+                    - product: Widget B
+                      revenue: 3100
+                    - product: Widget C
+                      revenue: 5600
+              metadata:
+                callId: req-evaluate-1
+      responses:
+        '200':
+          description: SSE stream with a single completion event
+          content:
+            text/event-stream:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/EvaluateCompleteEvent'
+                  - $ref: '#/components/schemas/ErrorEvent'
+        '400':
+          description: Bad Request - Invalid request body
+        '401':
+          description: Unauthorized - Invalid or missing API key
