@@ -61,6 +61,8 @@ apis:
   - type: APIReference
     url: https://docs.graphy.dev/agents/overview
 common:
+- type: Overlay
+  url: overlays/graphy-agents-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/graphy-agentic-access.yml
 - type: Website
