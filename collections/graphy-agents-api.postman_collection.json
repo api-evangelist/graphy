@@ -1,0 +1,1448 @@
+{
+  "item": [
+    {
+      "id": "c67b6595-8cc2-4d7a-b239-86aece26d949",
+      "name": "Agents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a0f74c9-ed59-406c-a4ef-ea11f3c942c9",
+          "name": "Chart Maker Agent",
+          "request": {
+            "name": "Chart Maker Agent",
+            "description": {
+              "content": "Modify charts using natural language. Send a GraphConfig and a prompt, receive an updated GraphConfig.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 8877.83926629863,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6aa2c8c4-712a-44f6-8360-2ab18b0f82c3",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"quarter\",\n          \"label\": \"Quarter\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"quarter\": \"Q1\",\n          \"revenue\": 50000\n        },\n        {\n          \"quarter\": \"Q2\",\n          \"revenue\": 62000\n        },\n        {\n          \"quarter\": \"Q3\",\n          \"revenue\": 58000\n        },\n        {\n          \"quarter\": \"Q4\",\n          \"revenue\": 71000\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Change this to a line chart with a trend line\",\n  \"metadata\": {\n    \"callId\": \"req-12345\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb71fbdb-efd6-4270-91ff-e286cb8b71cb",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"quarter\",\n          \"label\": \"Quarter\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"quarter\": \"Q1\",\n          \"revenue\": 50000\n        },\n        {\n          \"quarter\": \"Q2\",\n          \"revenue\": 62000\n        },\n        {\n          \"quarter\": \"Q3\",\n          \"revenue\": 58000\n        },\n        {\n          \"quarter\": \"Q4\",\n          \"revenue\": 71000\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Change this to a line chart with a trend line\",\n  \"metadata\": {\n    \"callId\": \"req-12345\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e4fdace-a82f-4fdb-9433-20e02c072348",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"quarter\",\n          \"label\": \"Quarter\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"quarter\": \"Q1\",\n          \"revenue\": 50000\n        },\n        {\n          \"quarter\": \"Q2\",\n          \"revenue\": 62000\n        },\n        {\n          \"quarter\": \"Q3\",\n          \"revenue\": 58000\n        },\n        {\n          \"quarter\": \"Q4\",\n          \"revenue\": 71000\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Change this to a line chart with a trend line\",\n  \"metadata\": {\n    \"callId\": \"req-12345\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9324ed67-bf68-4cd7-a89c-be78e5254fcf",
+          "name": "Suggestions Agent",
+          "request": {
+            "name": "Suggestions Agent",
+            "description": {
+              "content": "Generate chart type and data preparation suggestions from a dataset. Send a GraphConfig and a prompt, receive suggested visualizations.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "suggestions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 834,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  },\n  \"maxSuggestionCount\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55b732d2-1350-4a1f-bb8c-75ddb2e05ff3",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        },\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"sales\": 100,\n          \"region\": \"North\"\n        },\n        {\n          \"month\": \"Feb\",\n          \"sales\": 120,\n          \"region\": \"South\"\n        },\n        {\n          \"month\": \"Mar\",\n          \"sales\": 115,\n          \"region\": \"North\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Show me interesting trends\",\n  \"metadata\": {\n    \"callId\": \"req-67890\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca05bc38-4d66-4570-b3a7-e60c92fa83f8",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        },\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"sales\": 100,\n          \"region\": \"North\"\n        },\n        {\n          \"month\": \"Feb\",\n          \"sales\": 120,\n          \"region\": \"South\"\n        },\n        {\n          \"month\": \"Mar\",\n          \"sales\": 115,\n          \"region\": \"North\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Show me interesting trends\",\n  \"metadata\": {\n    \"callId\": \"req-67890\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d48b7bf-8932-4c0d-af44-35919d53e535",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        },\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"sales\": 100,\n          \"region\": \"North\"\n        },\n        {\n          \"month\": \"Feb\",\n          \"sales\": 120,\n          \"region\": \"South\"\n        },\n        {\n          \"month\": \"Mar\",\n          \"sales\": 115,\n          \"region\": \"North\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Show me interesting trends\",\n  \"metadata\": {\n    \"callId\": \"req-67890\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1fb7207-392e-478c-9d46-0194e8762ab3",
+          "name": "Mutation Agent",
+          "request": {
+            "name": "Mutation Agent",
+            "description": {
+              "content": "Transform a chart's dataset with natural language — filter, group, aggregate, derive, sort.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "mutate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 8877.83926629863,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b020fc96-c45c-4319-9b40-b3199cbca141",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "mutate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"region\": \"North\",\n          \"sales\": 100\n        },\n        {\n          \"region\": \"South\",\n          \"sales\": 80\n        },\n        {\n          \"region\": \"North\",\n          \"sales\": 120\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Total sales by region, sorted highest first\",\n  \"metadata\": {\n    \"callId\": \"req-mutate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2208bccb-62ba-4b5a-bd47-4382acb00bfc",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "mutate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"region\": \"North\",\n          \"sales\": 100\n        },\n        {\n          \"region\": \"South\",\n          \"sales\": 80\n        },\n        {\n          \"region\": \"North\",\n          \"sales\": 120\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Total sales by region, sorted highest first\",\n  \"metadata\": {\n    \"callId\": \"req-mutate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e0806de-735e-4778-a3ff-ed848ef6bfd5",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "mutate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"region\",\n          \"label\": \"Region\"\n        },\n        {\n          \"key\": \"sales\",\n          \"label\": \"Sales\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"region\": \"North\",\n          \"sales\": 100\n        },\n        {\n          \"region\": \"South\",\n          \"sales\": 80\n        },\n        {\n          \"region\": \"North\",\n          \"sales\": 120\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Total sales by region, sorted highest first\",\n  \"metadata\": {\n    \"callId\": \"req-mutate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84e5aeb9-22ce-4cb6-9016-da0471bfb42a",
+          "name": "Annotation Agent",
+          "request": {
+            "name": "Annotation Agent",
+            "description": {
+              "content": "Add highlights, tooltips, stickers, and other annotations to a chart with natural language.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "annotate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 8877.83926629863,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0583c503-b6e7-48ff-b5d8-56d2fea545b1",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "annotate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"revenue\": 100\n        },\n        {\n          \"month\": \"Feb\",\n          \"revenue\": 140\n        },\n        {\n          \"month\": \"Mar\",\n          \"revenue\": 220\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Highlight the March peak and add a tooltip explaining it\",\n  \"metadata\": {\n    \"callId\": \"req-annotate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b918e3a3-7a14-4ee9-a0d1-a7e309a02172",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "annotate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"revenue\": 100\n        },\n        {\n          \"month\": \"Feb\",\n          \"revenue\": 140\n        },\n        {\n          \"month\": \"Mar\",\n          \"revenue\": 220\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Highlight the March peak and add a tooltip explaining it\",\n  \"metadata\": {\n    \"callId\": \"req-annotate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3dfb2421-c6d5-404d-97be-aff71a0d1bae",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "annotate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"revenue\": 100\n        },\n        {\n          \"month\": \"Feb\",\n          \"revenue\": 140\n        },\n        {\n          \"month\": \"Mar\",\n          \"revenue\": 220\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Highlight the March peak and add a tooltip explaining it\",\n  \"metadata\": {\n    \"callId\": \"req-annotate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c0c8608-0b23-4724-96cf-0e849ba888a8",
+          "name": "Narrative Agent",
+          "request": {
+            "name": "Narrative Agent",
+            "description": {
+              "content": "Generate a chart's title, subtitle, and caption. Narrative is written into config.content as TipTap JSON. Requires userPrompt.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "narrate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 8877.83926629863,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4131a26f-2822-4199-a049-2117ee5554ee",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "narrate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"line\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"users\",\n          \"label\": \"Active Users\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"users\": 1200\n        },\n        {\n          \"month\": \"Feb\",\n          \"users\": 1800\n        },\n        {\n          \"month\": \"Mar\",\n          \"users\": 3100\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Write a punchy title and a one-line caption\",\n  \"metadata\": {\n    \"callId\": \"req-narrate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c3f344a-0a8c-4984-b54a-a63bb4880e38",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "narrate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"line\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"users\",\n          \"label\": \"Active Users\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"users\": 1200\n        },\n        {\n          \"month\": \"Feb\",\n          \"users\": 1800\n        },\n        {\n          \"month\": \"Mar\",\n          \"users\": 3100\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Write a punchy title and a one-line caption\",\n  \"metadata\": {\n    \"callId\": \"req-narrate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74abd006-0907-44f2-b815-e75f8eb2c068",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "narrate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"line\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"month\",\n          \"label\": \"Month\"\n        },\n        {\n          \"key\": \"users\",\n          \"label\": \"Active Users\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"month\": \"Jan\",\n          \"users\": 1200\n        },\n        {\n          \"month\": \"Feb\",\n          \"users\": 1800\n        },\n        {\n          \"month\": \"Mar\",\n          \"users\": 3100\n        }\n      ]\n    }\n  },\n  \"userPrompt\": \"Write a punchy title and a one-line caption\",\n  \"metadata\": {\n    \"callId\": \"req-narrate-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3ee772a-64be-45eb-8519-6a8de6a4dcff",
+          "name": "Extract Agent",
+          "request": {
+            "name": "Extract Agent",
+            "description": {
+              "content": "Build a chart-ready dataset from unstructured text, images, PDFs, or .xlsx spreadsheets. Provide sourceText, attachments, or both.\n\nThe response is a Server-Sent Events (SSE) stream with progress, complete, and error events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "extract"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceText\": \"<string>\",\n  \"attachments\": [\n    {\n      \"kind\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"dataBase64\": \"<string>\",\n      \"filename\": \"<string>\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"dataBase64\": \"<string>\",\n      \"filename\": \"<string>\"\n    }\n  ],\n  \"images\": [\n    {\n      \"mimeType\": \"<string>\",\n      \"dataBase64\": \"<string>\"\n    },\n    {\n      \"mimeType\": \"<string>\",\n      \"dataBase64\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f505751-105e-4c39-8db1-d6589b2971bc",
+              "name": "SSE stream with progress and completion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "extract"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceText\": \"In Q3, the Direct channel brought in $1.9M, Partner $0.4M, and Marketplace $1.1M.\",\n  \"metadata\": {\n    \"callId\": \"req-extract-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e79104c9-0e1f-4d12-bc10-af0928deec13",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "extract"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceText\": \"In Q3, the Direct channel brought in $1.9M, Partner $0.4M, and Marketplace $1.1M.\",\n  \"metadata\": {\n    \"callId\": \"req-extract-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05f1418e-6d1f-4c6b-9cab-f19391804eae",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "extract"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceText\": \"In Q3, the Direct channel brought in $1.9M, Partner $0.4M, and Marketplace $1.1M.\",\n  \"metadata\": {\n    \"callId\": \"req-extract-1\",\n    \"locale\": \"EN_US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0991ed00-69cf-4f99-ab55-2fa437d85eb1",
+          "name": "Evaluation",
+          "request": {
+            "name": "Evaluation",
+            "description": {
+              "content": "Score how well every chart type fits a dataset. Deterministic — a rule-based scorer with no language model, so it returns a single result and uses no tokens. Only config.data is scored.\n\nThe response is a Server-Sent Events (SSE) stream. Evaluation emits no progress events — the result arrives in a single complete event.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v0",
+                "evaluate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"key_0\": 5276.723754835834\n        },\n        {\n          \"key_0\": 7317.579630300384,\n          \"key_1\": \"string\",\n          \"key_2\": 7595.037079012645\n        }\n      ]\n    }\n  },\n  \"chartFamily\": \"<string>\",\n  \"metadata\": {\n    \"callId\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"effort\": \"<string>\",\n    \"storytellingEffort\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ba871ae-497e-433b-a455-df2d9dfc0629",
+              "name": "SSE stream with a single completion event",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"product\",\n          \"label\": \"Product\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"product\": \"Widget A\",\n          \"revenue\": 4200\n        },\n        {\n          \"product\": \"Widget B\",\n          \"revenue\": 3100\n        },\n        {\n          \"product\": \"Widget C\",\n          \"revenue\": 5600\n        }\n      ]\n    }\n  },\n  \"metadata\": {\n    \"callId\": \"req-evaluate-1\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9d0b3135-9316-4f16-9929-e911ed8fcb00",
+              "name": "Bad Request - Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"product\",\n          \"label\": \"Product\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"product\": \"Widget A\",\n          \"revenue\": 4200\n        },\n        {\n          \"product\": \"Widget B\",\n          \"revenue\": 3100\n        },\n        {\n          \"product\": \"Widget C\",\n          \"revenue\": 5600\n        }\n      ]\n    }\n  },\n  \"metadata\": {\n    \"callId\": \"req-evaluate-1\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c897ed49-a901-4458-a14d-74ecabf0bef3",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v0",
+                    "evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"type\": \"column\",\n    \"data\": {\n      \"columns\": [\n        {\n          \"key\": \"product\",\n          \"label\": \"Product\"\n        },\n        {\n          \"key\": \"revenue\",\n          \"label\": \"Revenue\"\n        }\n      ],\n      \"rows\": [\n        {\n          \"product\": \"Widget A\",\n          \"revenue\": 4200\n        },\n        {\n          \"product\": \"Widget B\",\n          \"revenue\": 3100\n        },\n        {\n          \"product\": \"Widget C\",\n          \"revenue\": 5600\n        }\n      ]\n    }\n  },\n  \"metadata\": {\n    \"callId\": \"req-evaluate-1\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agents.graphy.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "844aee7e-b213-40d8-a99e-f93e66342ece",
+    "name": "Graphy AI Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AI-powered chart generation and modification API",
+      "type": "text/plain"
+    }
+  }
+}

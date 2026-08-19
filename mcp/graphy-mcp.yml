@@ -2,10 +2,9 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/graphy-agents-openapi.yaml
-note: >-
-  No official hosted/remote MCP server was found for Graphy (searched docs.graphy.dev, graphy.dev,
-  and MCP registries). This is a DERIVED candidate tool list, one tool per Graphy AI Agents API
-  operation. All endpoints stream results as Server-Sent Events (text/event-stream).
+note: No official hosted/remote MCP server was found for Graphy (searched docs.graphy.dev, graphy.dev,
+  and MCP registries). This is a DERIVED candidate tool list, one tool per Graphy AI Agents API operation.
+  All endpoints stream results as Server-Sent Events (text/event-stream).
 server:
   name: graphy
   transport: http
@@ -13,7 +12,8 @@ server:
   auth: 'bearer (Authorization: Bearer graphy_...)'
 tools:
 - name: generate_graph
-  description: Modify a chart using natural language — send a GraphConfig and a prompt, receive an updated GraphConfig.
+  description: Modify a chart using natural language — send a GraphConfig and a prompt, receive an updated
+    GraphConfig.
   source_operation: openapi/graphy-agents-openapi.yaml#generateGraph
 - name: generate_suggestions
   description: Generate chart-type and data-preparation suggestions from a dataset.
@@ -31,5 +31,12 @@ tools:
   description: Build a chart-ready dataset from unstructured text, images, PDFs or .xlsx spreadsheets.
   source_operation: openapi/graphy-agents-openapi.yaml#extractFromProse
 - name: evaluate_dataset
-  description: Deterministically score how well every chart type fits a dataset (rule-based, no LLM, no tokens).
+  description: Deterministically score how well every chart type fits a dataset (rule-based, no LLM, no
+    tokens).
   source_operation: openapi/graphy-agents-openapi.yaml#evaluateDataset
+deployment:
+  mode: none
+  verified: derived
+  tools: 7
+  checked: '2026-08-12'
+  source: catalog MCP census
