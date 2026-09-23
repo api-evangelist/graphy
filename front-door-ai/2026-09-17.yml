@@ -1,0 +1,27 @@
+# Front Door AI Index — graphy — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: graphy
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: graphy.app
+  final_host: graphy.app
+  ownership: own
+  owner: graphy
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 30
+  host_score: 30
+  density: 12.11
+  words: 2478
+  tiers:
+    agentic: 8
+    core: 22
+    model: 0
+  ambiguous: 0
+  top_terms:
+    AI: 22
+    fine-tune: 4
+    prompts: 4
