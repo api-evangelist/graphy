@@ -352,32 +352,75 @@ paths:
           description: Unauthorized - Invalid or missing API key
 components:
   schemas:
-    ExtractMeta:
-      title: Extraction trust metadata
+    Suggestion:
       type: object
-      description: Trust metadata for the extraction; null when unavailable
       properties:
-        confidence:
+        dataPrepPrompt:
+          type: string
+          description: Prompt describing how to prepare the data for this chart
+        chartType:
           type: string
           enum:
-          - high
-          - medium
-          - low
-        needsUserInput:
-          type: boolean
-        warnings:
-          type: array
-          items:
-            type: string
-    SuggestionsCompleteEvent:
-      title: Suggestions complete event
-      description: SSE event name is "complete"
+          - line
+          - areaStacked
+          - bar
+          - groupedBar
+          - stackedBar
+          - 100StackedBar
+          - column
+          - groupedColumn
+          - stackedColumn
+          - 100StackedColumn
+          - combo
+          - pie
+          - donut
+          - funnel
+          - heatmap
+          - scatter
+          - bubble
+          - waterfall
+          - table
+          - mekko
+          description: Suggested chart type
+        summary:
+          type: string
+          description: Short description of what the chart would show
+      required:
+      - dataPrepPrompt
+      - chartType
+      - summary
+    Metadata:
       type: object
+      description: Optional tracking information for requests
       properties:
-        suggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Suggestion'
+        callId:
+          type: string
+          description: Required when metadata is provided. Unique identifier for tracking and debugging.
+        locale:
+          type: string
+          enum:
+          - EN_GB
+          - EN_US
+          - AR
+          - PT_PT
+          description: Locale for responses
+        effort:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          description: Preferred invocation tier; forwarded on the invocation (including nested agents). When omitted, it can be inferred from `storytellingEffort` or defaults to `medium`.
+        storytellingEffort:
+          type: string
+          enum:
+          - none
+          - low
+          - medium
+          - high
+          description: Deprecated. Prefer `effort`. When set without `effort`, the server derives `effort` for propagation. For chart generation, an explicit value still controls narrative richness when both `effort` and `storytellingEffort` are present (`storytellingEffort` wins for the chart).
+      required:
+      - callId
     ChartFitEntry:
       type: object
       description: A single chart type, scored against the dataset.
@@ -429,119 +472,33 @@ components:
       - score
       - verdict
       - factors
-    SuggestionsRequest:
+    ChartFitFactor:
       type: object
+      description: A single reason that contributed to a chart type's score.
       properties:
-        config:
-          $ref: '#/components/schemas/GraphConfig'
-        userPrompt:
+        kind:
           type: string
-          maxLength: 10000
-          description: Natural language description of what to visualize
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-        maxSuggestionCount:
-          type: integer
-          minimum: 1
-          maximum: 4
-          description: Optional upper bound (1–4) communicated to the model for how many suggestions to aim for. The response is not truncated; the model may still return more items.
+          enum:
+          - deal-breaker
+          - pro
+          - con
+          - family
+          - specificity
+          - continuity
+        label:
+          type: string
+          description: Short label for the factor.
+        weight:
+          type: number
+          description: How much the factor moved the score.
+        reason:
+          type: string
+          description: Why the factor applies to this dataset.
       required:
-      - config
-      - userPrompt
-    ExtractCompleteEvent:
-      title: Extract complete event
-      description: SSE event name is "complete"
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/GraphConfig'
-        response:
-          type: object
-          properties:
-            message:
-              type: string
-        extractMeta:
-          $ref: '#/components/schemas/ExtractMeta'
-        lastAccuracyEvaluation:
-          type: object
-          description: Optional final accuracy self-check
-          properties:
-            score:
-              type: number
-            issues:
-              type: array
-              items:
-                type: string
-            sufficient:
-              type: boolean
-            summary:
-              type: string
-    ExtractRequest:
-      type: object
-      description: Provide sourceText, attachments, or both — at least one is required. images and attachments are mutually exclusive.
-      properties:
-        sourceText:
-          type: string
-          maxLength: 500000
-          description: Raw text to extract data from
-        attachments:
-          type: array
-          maxItems: 12
-          description: Images (max 8), PDFs (max 2), and spreadsheets (max 2). Preferred over images[].
-          items:
-            $ref: '#/components/schemas/ExtractAttachment'
-        images:
-          type: array
-          maxItems: 8
-          description: Deprecated — use attachments with kind "image".
-          items:
-            type: object
-            properties:
-              mimeType:
-                type: string
-              dataBase64:
-                type: string
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-    Metadata:
-      type: object
-      description: Optional tracking information for requests
-      properties:
-        callId:
-          type: string
-          description: Required when metadata is provided. Unique identifier for tracking and debugging.
-        locale:
-          type: string
-          enum:
-          - EN_GB
-          - EN_US
-          - AR
-          - PT_PT
-          description: Locale for responses
-        effort:
-          type: string
-          enum:
-          - low
-          - medium
-          - high
-          description: Preferred invocation tier; forwarded on the invocation (including nested agents). When omitted, it can be inferred from `storytellingEffort` or defaults to `medium`.
-        storytellingEffort:
-          type: string
-          enum:
-          - none
-          - low
-          - medium
-          - high
-          description: Deprecated. Prefer `effort`. When set without `effort`, the server derives `effort` for propagation. For chart generation, an explicit value still controls narrative richness when both `effort` and `storytellingEffort` are present (`storytellingEffort` wins for the chart).
-      required:
-      - callId
-    ErrorEvent:
-      title: Error event
-      description: SSE event name is "error"
-      type: object
-      properties:
-        message:
-          type: string
+      - kind
+      - label
+      - weight
+      - reason
     GraphConfig:
       type: object
       description: The graph configuration object used to render charts. See [Graph Config Schema](/reference/graph-config) for the complete reference.
@@ -590,71 +547,7 @@ components:
       required:
       - type
       - data
-    ChartFitFactor:
-      type: object
-      description: A single reason that contributed to a chart type's score.
-      properties:
-        kind:
-          type: string
-          enum:
-          - deal-breaker
-          - pro
-          - con
-          - family
-          - specificity
-          - continuity
-        label:
-          type: string
-          description: Short label for the factor.
-        weight:
-          type: number
-          description: How much the factor moved the score.
-        reason:
-          type: string
-          description: Why the factor applies to this dataset.
-      required:
-      - kind
-      - label
-      - weight
-      - reason
-    Suggestion:
-      type: object
-      properties:
-        dataPrepPrompt:
-          type: string
-          description: Prompt describing how to prepare the data for this chart
-        chartType:
-          type: string
-          enum:
-          - line
-          - areaStacked
-          - bar
-          - groupedBar
-          - stackedBar
-          - 100StackedBar
-          - column
-          - groupedColumn
-          - stackedColumn
-          - 100StackedColumn
-          - combo
-          - pie
-          - donut
-          - funnel
-          - heatmap
-          - scatter
-          - bubble
-          - waterfall
-          - table
-          - mekko
-          description: Suggested chart type
-        summary:
-          type: string
-          description: Short description of what the chart would show
-      required:
-      - dataPrepPrompt
-      - chartType
-      - summary
-    GenerateRequest:
+    SuggestionsRequest:
       type: object
       properties:
         config:
@@ -662,9 +555,14 @@ components:
         userPrompt:
           type: string
           maxLength: 10000
-          description: Natural language instruction describing the desired changes
+          description: Natural language description of what to visualize
         metadata:
           $ref: '#/components/schemas/Metadata'
+        maxSuggestionCount:
+          type: integer
+          minimum: 1
+          maximum: 4
+          description: Optional upper bound (1–4) communicated to the model for how many suggestions to aim for. The response is not truncated; the model may still return more items.
       required:
       - config
       - userPrompt
@@ -686,6 +584,23 @@ components:
           $ref: '#/components/schemas/Metadata'
       required:
       - config
+    ExtractMeta:
+      title: Extraction trust metadata
+      type: object
+      description: Trust metadata for the extraction; null when unavailable
+      properties:
+        confidence:
+          type: string
+          enum:
+          - high
+          - medium
+          - low
+        needsUserInput:
+          type: boolean
+        warnings:
+          type: array
+          items:
+            type: string
     EvaluateCompleteEvent:
       title: Evaluation complete event
       description: SSE event name is "complete". Evaluation emits no progress events.
@@ -698,6 +613,100 @@ components:
           description: Every supported chart type, scored and ranked by fit (best first).
       required:
       - ranking
+    GenerateRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        userPrompt:
+          type: string
+          maxLength: 10000
+          description: Natural language instruction describing the desired changes
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - config
+      - userPrompt
+    ErrorEvent:
+      title: Error event
+      description: SSE event name is "error"
+      type: object
+      properties:
+        message:
+          type: string
+    ExtractRequest:
+      type: object
+      description: Provide sourceText, attachments, or both — at least one is required. images and attachments are mutually exclusive.
+      properties:
+        sourceText:
+          type: string
+          maxLength: 500000
+          description: Raw text to extract data from
+        attachments:
+          type: array
+          maxItems: 12
+          description: Images (max 8), PDFs (max 2), and spreadsheets (max 2). Preferred over images[].
+          items:
+            $ref: '#/components/schemas/ExtractAttachment'
+        images:
+          type: array
+          maxItems: 8
+          description: Deprecated — use attachments with kind "image".
+          items:
+            type: object
+            properties:
+              mimeType:
+                type: string
+              dataBase64:
+                type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    CompleteEvent:
+      title: Complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        response:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable explanation of the changes made
+            steps:
+              type: array
+              items:
+                type: string
+              description: Breakdown of individual modifications
+    ExtractCompleteEvent:
+      title: Extract complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GraphConfig'
+        response:
+          type: object
+          properties:
+            message:
+              type: string
+        extractMeta:
+          $ref: '#/components/schemas/ExtractMeta'
+        lastAccuracyEvaluation:
+          type: object
+          description: Optional final accuracy self-check
+          properties:
+            score:
+              type: number
+            issues:
+              type: array
+              items:
+                type: string
+            sufficient:
+              type: boolean
+            summary:
+              type: string
     ExtractAttachment:
       type: object
       description: An image, PDF, or spreadsheet to extract data from. Construct directly or via the SDK build*Attachment helpers.
@@ -721,6 +730,15 @@ components:
       - kind
       - mimeType
       - dataBase64
+    SuggestionsCompleteEvent:
+      title: Suggestions complete event
+      description: SSE event name is "complete"
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Suggestion'
     ProgressEvent:
       title: Progress event
       description: SSE event name is "progress"
@@ -728,24 +746,6 @@ components:
       properties:
         message:
           type: string
-    CompleteEvent:
-      title: Complete event
-      description: SSE event name is "complete"
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/GraphConfig'
-        response:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable explanation of the changes made
-            steps:
-              type: array
-              items:
-                type: string
-              description: Breakdown of individual modifications
   securitySchemes:
     bearerAuth:
       type: http
