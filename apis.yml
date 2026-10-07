@@ -78,6 +78,8 @@ apis:
   - type: APIReference
     url: https://docs.graphy.dev/agents/overview
 common:
+- type: Plans
+  url: plans/graphy-plans-pricing.yml
 - type: Overlay
   url: overlays/graphy-agents-overlay.yaml
 - type: AgenticAccess
