@@ -1,0 +1,72 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://graphy.app/pricing
+sources:
+- https://graphy.app/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Page shows -20% for annual billing; SDK/API offering links out to a separate developer page with
+  no prices here.
+plan_count: 3
+currency: USD
+plans:
+- name: Free
+  price_text: Free for everyone
+  period: none
+  included_quota: 5 charts, share anywhere, limited AI use
+- name: Plus
+  price_text: $16
+  price: 16
+  currency: USD
+  period: month
+  unit: per user/month
+  included_quota: 'Everything in Free, plus: custom colors, remove Graphy logo, unlimited charts, unlimited
+    AI features'
+- name: Business
+  price_text: $36
+  price: 36
+  currency: USD
+  period: month
+  unit: per user/month
+  included_quota: 'Everything in Plus, plus: auto Google Sheets refresh, password protected links, brand
+    kits'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Plus
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Business
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
