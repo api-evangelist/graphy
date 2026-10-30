@@ -64,6 +64,125 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Graphy is a company surfaced as a portfolio company of seedcamp and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Graphy is an AI-powered data visualization platform that turns raw data into presentation-ready charts and interactive data stories. Alongside its no-code chart maker (Google Sheets, CSV and Excel import, AI insights, conversational data chat and 20+ chart types), Graphy ships a developer platform at graphy.dev: an AI Agents API that generates, mutates, annotates, narrates, extracts and deterministically evaluates charts from natural language — streamed as Server-Sent Events — plus a React charting SDK and editor for embedding editable, story-driven data experiences inside your own product. Backed by Seedcamp, Coatue, General Catalyst and Northzone.
 
-Backed by: seedcamp — http://graphy.app
+**Areas:** Company · Data Visualization · Charts · Charting · Analytics · Artificial Intelligence · Data Storytelling · Developer Tools · SDK · Agents
+
+## Graphy on APIs.io
+
+Everything profiled for Graphy is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/graphy/](https://apis.io/providers/graphy/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Graphy Agents API](https://apis.io/apis/graphy/graphy-agents-api/) — The Agents API from Graphy — 7 operation(s) for agents.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [graphy](https://apis.io/servers/graphy/graphy/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Graphy Agentic Access](https://apis.io/agentic-access/graphy/graphy-agentic-access/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Graphy AI Agents API](https://apis.io/collections/graphy/open-graphy-agents-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Graphy Agents Overlay](https://apis.io/overlays/graphy/graphy-agents-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Graphy Authentication](https://apis.io/security/graphy/graphy-authentication/)
+- [Graphy Domain Security](https://apis.io/security/graphy/graphy-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Graphy Plans Pricing](https://apis.io/plans/graphy/graphy-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://graphy.app)
+- [Documentation](https://docs.graphy.dev/)
+- [Getting started](https://docs.graphy.dev/agents/quickstart)
+- [API reference](https://docs.graphy.dev/agents/overview)
+- [Pricing](https://graphy.app/pricing)
+- [Sign up](https://graphy.app/signup)
+- [Blog](https://graphy.app/blog)
+- [Terms of service](https://graphy.app/terms)
+- [Privacy policy](https://graphy.app/privacy)
+- [Status](https://status.graphy.app/)
+
+## API Evangelist rating
+
+**Kin Score 53.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 53.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 61.3 |
+| Access clarity | 76.3 |
+
+**Agent readiness 27.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/graphy/](https://apis.io/providers/graphy/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Graphy: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/graphy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
